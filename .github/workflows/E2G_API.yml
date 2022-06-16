@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: start_E2G_API_todo_Tests
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        
+      # Runs my request to the E2G API to start the tests, uses previous generated in okta: CLient ID and Client Secret
+      - name: send a request to E2G API
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://philipp.my.tricentis.com/default/_e2g/api/flowExecutions'
+          method: 'POST'
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{"flowId": "156f1a37-121e-4547-9842-d5f5c9ceeefd", "timeoutInMinutes": "300"}'
+        
+        
+#      - name: Deploy Stage
+#      uses: fjogeleit/http-request-action@v1
+#      with:
+#        url: 'https://ansible.io/api/v2/job_templates/84/launch/'
+#        method: 'POST'
+#        username: ${{ secrets.AWX_USER }}
+#        password: ${{ secrets.AWX_PASSWORD }}
+#        customHeaders: '{"Content-Type": "application/json"}'
+#        data: '{"key_1": "value_1", "key_2": "value_2"}'
+
+#- name: Show Response
+#    run: |
+#      echo ${{ steps.myRequest.outputs.response }}
