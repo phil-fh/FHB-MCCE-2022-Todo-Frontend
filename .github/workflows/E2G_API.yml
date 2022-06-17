@@ -51,7 +51,7 @@ jobs:
 #        run: |
 #          echo ${{ steps.RequestToken.outputs.response }}
 #          echo ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
-   
+
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
         with:
@@ -61,4 +61,4 @@ jobs:
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"flowId":"73960ac8-7d45-40fd-b6d2-c77b91618e37","timeoutInMinutes":"300"}'
 
-#echo ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
+
