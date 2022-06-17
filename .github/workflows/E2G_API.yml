@@ -45,7 +45,7 @@ jobs:
           url: 'https://philipp.oktapreview.com/oauth2/default/v1/token'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: '{"grant_type=client_credentials"&"client_id=Tricentis_Cloud_API"&"client_secret=321HV96KwP1JWEKvkNUFGHM9F8Oya37IOSMOjvwR"&"scope=E2GApi"}'
+          data: '{"grant_type:client_credentials"&"client_id:Tricentis_Cloud_API"&"client_secret:321HV96KwP1JWEKvkNUFGHM9F8Oya37IOSMOjvwR"&"scope:E2GApi"}'
        
       - name: ShowResponse
         run: |
