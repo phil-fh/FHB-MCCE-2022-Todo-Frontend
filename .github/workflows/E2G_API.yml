@@ -55,7 +55,7 @@ jobs:
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://clenterprise.my.tricentis.com/default/_e2g/api/flowExecutions'
+          url: 'https://philipp.my.tricentis.com/default/_e2g/api/flowExecutions'
           method: 'POST'
           bearerToken:  ${{ env.TOKEN }}
           customHeaders: '{"Content-Type": "application/json"}'
