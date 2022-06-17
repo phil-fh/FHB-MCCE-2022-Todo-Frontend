@@ -39,13 +39,13 @@ jobs:
       - name: storeToken
         run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> $GITHUB_ENV
  
-      - name: RequestToken 
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: 'https://philipp.oktapreview.com/oauth2/default/v1/token'
-          method: 'POST'
-          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: '{"grant_type"="client_credentials"&"client_id"="Tricentis_Cloud_API"&"client_secret"="321HV96KwP1JWEKvkNUFGHM9F8Oya37IOSMOjvwR"&"scope"="E2GApi"}'
+#      - name: RequestToken 
+#        uses: fjogeleit/http-request-action@v1
+#        with:
+#          url: 'https://philipp.oktapreview.com/oauth2/default/v1/token'
+#          method: 'POST'
+#          customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
+#          data: '{"grant_type"="client_credentials"&"client_id"="Tricentis_Cloud_API"&"client_secret"="321HV96KwP1JWEKvkNUFGHM9F8Oya37IOSMOjvwR"&"scope"="E2GApi"}'
        
 #      - name: ShowResponse
 #        run: |
