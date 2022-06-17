@@ -45,7 +45,7 @@ jobs:
           url: 'https://philipp.oktapreview.com/oauth2/default/v1/token'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/x-www-form-urlencoded"}'
-          data: '{"grant_type=client_credentials"&"client_id=Tricentis_Cloud_API"&"client_secret=321HV96KwP1JWEKvkNUFGHM9F8Oya37IOSMOjvwR"}'
+          data: '{"grant_type=client_credentials"&"client_id=Tricentis_Cloud_API"&"client_secret=321HV96KwP1JWEKvkNUFGHM9F8Oya37IOSMOjvwR"&"scope=E2GApi"}'
        
       - name: ShowResponse
         run: |
@@ -59,4 +59,4 @@ jobs:
           method: 'POST'
           bearerToken: echo ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"flowId": "73960ac8-7d45-40fd-b6d2-c77b91618e37", "timeoutInMinutes": "300"}'
+          data: '{"flowId":"73960ac8-7d45-40fd-b6d2-c77b91618e37","timeoutInMinutes":"300"}'
