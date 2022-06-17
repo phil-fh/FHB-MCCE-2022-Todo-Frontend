@@ -24,28 +24,27 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-        
-      # Runs my request to the E2G API to start the tests, uses previous generated in okta: CLient ID and Client Secret
+      
+      - name: RequestToken 
+        run: |
+          curl \
+          --location --request POST 'https://philipp.oktapreview.com/oauth2/default/v1/token' \
+          --header 'Content-Type: application/x-www-form-urlencoded' \
+          --data-urlencode 'grant_type=client_credentials' \
+          --data-urlencode 'client_id=Tricentis_Cloud_API' \
+          --data-urlencode 'client_secret=${{ secrets.APISECRET }}' \
+          --data-urlencode 'scope=E2GApi' \
+          --output response.json
+          
+      - name: Token
+        run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> ${{ secrets.TOKEN }}
+      
+      # Runs my request to the E2G API to start the tests, uses previous generated bearerToken
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://philipp.my.tricentis.com/default/_e2g/api/flowExecutions'
           method: 'POST'
-          bearerToken: ${{ secrets.APISECRET }}
+          bearerToken: ${{ secrets.TOKEN }}
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"flowId": "156f1a37-121e-4547-9842-d5f5c9ceeefd", "timeoutInMinutes": "300"}'
-          
-        
-#      - name: Deploy Stage
-#      uses: fjogeleit/http-request-action@v1
-#      with:
-#        url: 'https://ansible.io/api/v2/job_templates/84/launch/'
-#        method: 'POST'
-#        username: ${{ secrets.AWX_USER }}
-#        password: ${{ secrets.AWX_PASSWORD }}
-#        customHeaders: '{"Content-Type": "application/json"}'
-#        data: '{"key_1": "value_1", "key_2": "value_2"}'
-
-#- name: Show Response
-#    run: |
-#      echo ${{ steps.myRequest.outputs.response }}
+          data: '{"flowId": "73960ac8-7d45-40fd-b6d2-c77b91618e37", "timeoutInMinutes": "300"}'
