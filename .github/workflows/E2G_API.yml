@@ -25,20 +25,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-#      - name: RequestToken 
-#        run: |
-#          curl \
-#          --location --request POST 'https://philipp.oktapreview.com/oauth2/default/v1/token' \
-#          --header 'Content-Type: application/x-www-form-urlencoded' \
-#          --data-urlencode 'grant_type=client_credentials' \
-#          --data-urlencode 'client_id=Tricentis_Cloud_API' \
-#          --data-urlencode 'client_secret=${{ secrets.APISECRET }}' \
-#          --data-urlencode 'scope=E2GApi' \
-#          --output response.json
-#          
-#      - name: storeToken
-#        run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> ${{ secrets.TOKEN }}
-# 
+      - name: RequestToken 
+        run: |
+          curl \
+          --location --request POST 'https://philipp.oktapreview.com/oauth2/default/v1/token' \
+          --header 'Content-Type: application/x-www-form-urlencoded' \
+          --data-urlencode 'grant_type=client_credentials' \
+          --data-urlencode 'client_id=Tricentis_Cloud_API' \
+          --data-urlencode 'client_secret=${{ secrets.APISECRET }}' \
+          --data-urlencode 'scope=E2GApi' \
+          --output response.json
+          
+      - name: storeToken
+        run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> $GITHUB_ENV
+ 
       - name: RequestToken 
         uses: fjogeleit/http-request-action@v1
         with:
@@ -57,6 +57,8 @@ jobs:
         with:
           url: 'https://clenterprise.my.tricentis.com/default/_e2g/api/flowExecutions'
           method: 'POST'
-          bearerToken: echo ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
+          bearerToken:  ${{ env.TOKEN }}
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"flowId":"73960ac8-7d45-40fd-b6d2-c77b91618e37","timeoutInMinutes":"300"}'
+
+#echo ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
