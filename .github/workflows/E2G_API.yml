@@ -58,7 +58,7 @@ jobs:
         with:
           url: 'https://philipp.my.tricentis.com/default/_e2g/api/flowExecutions'
           method: 'POST'
-          bearerToken:  ${{ env.TOKEN }}
+          bearerToken:  ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"flowId":"156f1a37-121e-4547-9842-d5f5c9ceeefd","timeoutInMinutes":"300"}'
 
