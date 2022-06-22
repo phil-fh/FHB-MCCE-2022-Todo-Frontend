@@ -40,6 +40,7 @@ jobs:
 #        run: echo "TOKEN=$(cat response.json | jq -r .access_token)" >> $GITHUB_ENV
  
       - name: RequestToken 
+        id: RequestToken
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://philipp.oktapreview.com/oauth2/default/v1/token'
