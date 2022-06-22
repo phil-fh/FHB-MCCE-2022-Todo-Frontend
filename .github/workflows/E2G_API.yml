@@ -47,10 +47,10 @@ jobs:
           customHeaders: '{"Content-Type": "application/x-www-form-urlencoded", "Accept": "*/*"}'
           data: 'grant_type=client_credentials&client_id=${{ secrets.APIID }}&client_secret=${{ secrets.APISECRET }}&scope=E2GApi'       
 
-#      - name: ShowResponse
-#        run: |
-#          echo ${{ steps.RequestToken.outputs.response }}
-#          echo ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
+      - name: ShowResponse
+        run: |
+          echo ${{ steps.RequestToken.outputs.response }}
+          echo ${{ fromJson(steps.RequestToken.outputs.response).access_token }}
 
       - name: send a request to E2G API
         uses: fjogeleit/http-request-action@v1
